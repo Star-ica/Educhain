@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Verify – EduChain</title><link rel="stylesheet" href="css/style.css"></head><body>
+<nav class="nav"><a class="logo" href="index.html"><i>🎓</i><span>EduChain</span></a><div class="links"><a href="index.html" class="">Home</a><a href="student.html" class="">Student</a><a href="institution.html" class="">Institution</a><a href="verify.html" class="on">Verify</a><a href="admin.html" class="">Admin</a></div><button class="btn" id="wbtn">Connect wallet</button></nav>
+<main class="wrap"><h1>Verify a certificate</h1><p class="sub">Public lookup. No wallet needed.</p>
+<div class="panel"><label>Certificate ID</label><div class="row2"><input id="cid" type="number" min="0" placeholder="e.g. 0"><button class="btn" id="chk">Verify</button></div></div><div id="res"></div></main>
+<footer>© 2026 EduChain · Built on BOT Chain<br><a href="https://botchain.ai" target="_blank" rel="noopener">BOT Chain Website</a> · <a href="https://scan.bohr.life" target="_blank" rel="noopener">BOT Chain Explorer</a></footer><div id="toast"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script><script src="js/app.js"></script>
+<script>
+async function check(){
+  const id=$("#cid").value.trim();if(id===""||isNaN(id))return toast("Enter a certificate ID",1);
+  if(!ro)return toast("Set CONTRACT_ADDRESS in js/app.js",1);
+  $("#res").innerHTML='<p class="empty">Checking…</p>';
+  try{
+    const c=await ro.getCert(id),inst=await ro.institutions(c[0]),ok=!c[7];
+    $("#res").innerHTML=`<div class="panel"><p class="status ${ok?"ok":"bad"}">${ok?"✔ Valid certificate":"✖ Certificate revoked"}</p><dl class="kv"><dt>Certificate</dt><dd><b>${esc(c[4])}</b></dd><dt>Awarded to</dt><dd>${esc(c[3])}</dd><dt>Student wallet</dt><dd class="mono">${c[2]}</dd><dt>Issued by</dt><dd>${esc(c[1])} <span class="badge ${inst[1]?"ok":"off"}">${inst[1]?"Approved institution":"Institution no longer approved"}</span></dd><dt>Issued on</dt><dd>${when(c[6])}</dd><dt>File hash</dt><dd class="mono">${esc(c[5])||"—"}</dd><dt>Certificate ID</dt><dd>${id}</dd></dl></div>`;
+  }catch(e){$("#res").innerHTML='<div class="panel"><p class="status bad">✖ No certificate found with that ID</p></div>'}
+}
+$("#chk").onclick=check;
+const q=new URLSearchParams(location.search).get("id");if(q!==null){$("#cid").value=q;check()}
+</script></body></html>

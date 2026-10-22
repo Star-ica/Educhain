@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin – EduChain</title><link rel="stylesheet" href="css/style.css"></head><body>
+<nav class="nav"><a class="logo" href="index.html"><i>🎓</i><span>EduChain</span></a><div class="links"><a href="index.html" class="">Home</a><a href="student.html" class="">Student</a><a href="institution.html" class="">Institution</a><a href="verify.html" class="">Verify</a><a href="admin.html" class="on">Admin</a></div><button class="btn" id="wbtn">Connect wallet</button></nav>
+<main class="wrap"><h1>Network admin</h1><p class="sub">Approve or remove institutions.</p><div id="gate"><div class="notice">Connect your wallet to continue.</div></div>
+<div id="adm" style="display:none"><div class="panel"><h2>Register an institution</h2><div class="row" style="grid-template-columns:1fr 1fr auto"><div><label>Institution wallet</label><input id="ia" placeholder="0x…"></div><div><label>Institution name</label><input id="in" placeholder="e.g. University of Lagos"></div><button class="btn" id="addi">Register</button></div></div>
+<div class="panel"><h2>Institutions</h2><div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Wallet</th><th>Status</th><th></th></tr></thead><tbody id="il"></tbody></table></div></div></div></main>
+<footer>© 2026 EduChain · Built on BOT Chain<br><a href="https://botchain.ai" target="_blank" rel="noopener">BOT Chain Website</a> · <a href="https://scan.bohr.life" target="_blank" rel="noopener">BOT Chain Explorer</a></footer><div id="toast"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script><script src="js/app.js"></script>
+<script>
+document.addEventListener("ready",async()=>{
+  if((await vault.admin()).toLowerCase()!==account.toLowerCase()){$("#gate").innerHTML='<div class="notice">Only the contract admin can use this page.</div>';return}
+  $("#gate").innerHTML="";$("#adm").style.display="block";list();
+});
+async function list(){
+  const n=Number(await vault.institutionCount());let h="";
+  for(let i=0;i<n;i++){const [a,name,on]=await vault.institutionAt(i);
+    h+=`<tr><td><b>${esc(name)}</b></td><td class="mono">${a}</td><td>${on?'<span class="badge ok">Active</span>':'<span class="badge off">Removed</span>'}</td><td>${on?`<button class="btn sm danger" data-r="${a}">Remove</button>`:""}</td></tr>`}
+  $("#il").innerHTML=h||'<tr><td colspan="4" class="empty">No institutions registered yet.</td></tr>';
+  document.querySelectorAll("[data-r]").forEach(b=>b.onclick=async()=>{if(await tx(vault.removeInstitution(b.dataset.r),"Institution removed"))list()});
+}
+$("#addi").onclick=async()=>{
+  const a=$("#ia").value.trim(),n=$("#in").value.trim();
+  if(!ethers.isAddress(a)||!n)return toast("Enter a valid address and a name",1);
+  if(await tx(vault.addInstitution(a,n),"Institution registered")){$("#ia").value="";$("#in").value="";list()}
+};
+</script></body></html>
