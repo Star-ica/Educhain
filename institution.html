@@ -3,7 +3,7 @@
 <main class="wrap"><h1>Institution portal</h1><p class="sub">Issue and manage certificates.</p><div id="gate"><div class="notice">Connect your wallet to continue.</div></div>
 <div id="inst" style="display:none"><div class="panel"><h2>Issue a certificate</h2><label>Student wallet address</label><input id="sa" placeholder="0x…"><label>Student full name</label><input id="sn" placeholder="e.g. Ada Okafor"><label>Certificate title</label><input id="ti" placeholder="e.g. B.Sc. Computer Science, First Class"><label>Certificate file hash / IPFS CID (optional)</label><input id="fh" placeholder="bafy…"><br><br><button class="btn" id="iss">Issue certificate</button></div>
 <div class="panel"><h2>Issued certificates</h2><div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>Student</th><th>Certificate</th><th>Status</th><th></th></tr></thead><tbody id="il"></tbody></table></div></div></div></main>
-<footer>© 2026 EduChain · Built on BOT Chain<br><a href="https://botchain.ai" target="_blank" rel="noopener">BOT Chain Website</a> · <a href="https://scan.bohr.life" target="_blank" rel="noopener">BOT Chain Explorer</a></footer><div id="toast"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script><script src="js/app.js"></script>
+<footer>© 2026 EduChain · Built on BOT Chain<br><a href="https://botchain.ai" target="_blank" rel="noopener">BOT Chain Website</a> · <a href="https://scan.botchain.ai" target="_blank" rel="noopener">BOT Chain Explorer</a></footer><div id="toast"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script><script src="js/app.js"></script>
 <script>
 document.addEventListener("ready",async()=>{
   const i=await vault.institutions(account);

@@ -1,6 +1,6 @@
-const CHAIN={id:968,hex:"0x3c8",name:"BOT Chain Testnet",symbol:"BOT",rpc:"https://rpc.bohr.life",explorer:"https://scan.bohr.life",website:"https://botchain.ai"};
+const CHAIN={id:677,hex:"0x2A5",name:"BOT Chain ",symbol:"BOT",rpc:"https://rpc.botchain.ai",explorer:"https://scan.botchain.ai",website:"https://botchain.ai"};
 // TODO: replace with your deployed EduChain address
-const CONTRACT_ADDRESS="0xCc44545dBaD41083F5530E00D5a17596A79a8725";
+const CONTRACT_ADDRESS="0xBc39380e2f202564416250c641bCeAaB8631e7E9";
 const ABI=["function admin() view returns (address)","function institutions(address) view returns (string name,bool active)","function addInstitution(address a,string name)","function removeInstitution(address a)","function institutionCount() view returns (uint256)","function institutionAt(uint256 i) view returns (address,string,bool)","function issue(address student,string studentName,string title,string fileHash) returns (uint256)","function revoke(uint256 id)","function totalCerts() view returns (uint256)","function getCert(uint256 id) view returns (address,string,address,string,string,string,uint256,bool)","function certsOf(address student) view returns (uint256[])","function issuedBy(address inst) view returns (uint256[])"];
 let signer,account,vault;
 const ro=/^0x0+$/.test(CONTRACT_ADDRESS)?null:new ethers.Contract(CONTRACT_ADDRESS,ABI,new ethers.JsonRpcProvider(CHAIN.rpc));
