@@ -247,8 +247,48 @@
       </table>
     </div>
   </div>
+  
 </main>
-
+<!-- Footer — place this AFTER the last </main> and BEFORE <div id="toast"> -->
+<footer style="
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  margin-top: 4rem;
+  background: rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(12px);
+">
+  <div style="
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-mut);
+  ">
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <span style="color: var(--primary); font-size: 1rem; font-weight: 700;">🎓</span>
+      <span style="font-weight: 600; color: var(--text);">EduChain</span>
+      <span>© 2026 · Educational Blockchain</span>
+    </div>
+    <div style="display: flex; gap: 2rem;">
+      <a href="https://botchain.ai" target="_blank" rel="noopener"
+         style="color: var(--text-mut); text-decoration: none; transition: color 0.2s;"
+         onmouseover="this.style.color='var(--primary)'"
+         onmouseout="this.style.color='var(--text-mut)'">
+        BOTChain Network ↗
+      </a>
+      <a href="https://scan.botchain.ai" target="_blank" rel="noopener"
+         style="color: var(--text-mut); text-decoration: none; transition: color 0.2s;"
+         onmouseover="this.style.color='var(--primary)'"
+         onmouseout="this.style.color='var(--text-mut)'">
+        BOTChain Explorer ↗
+      </a>
+    </div>
+  </div>
+</footer>
 <div id="toast"></div>
 
 <!-- Ethers.js library -->
